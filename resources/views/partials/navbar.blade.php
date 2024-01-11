@@ -28,14 +28,39 @@
                     <a class="nav-link" href="#">Business</a>
                 </li>
             </ul>
-            @php
-                $isLogin = true;
-            @endphp
-            @if ($isLogin)
-                <div class="d-flex user-logged">
-                    <a href="#">
-                        Halo, Beatrice!
-                        <img src="{{ asset('images/user_photo.png') }}" class="user-photo" alt="photo-profile">
+            @auth
+                <div class="d-flex user-logged nav-item dropdown no-arrow">
+                    <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                        Halo, {{ explode(' ', Auth::user()->name)[0] }}!
+                        @if (Auth::user()->avatar)
+                            <img src="{{ Auth::user()->avatar }}"
+                                class="user-photo rounded-circle"
+                                alt="avatar">
+                        @else
+                            <img src="https://ui-avatars.com/api/?name=Admin"
+                                class="user-photo rounded-circle"
+                                alt="avatar">
+                        @endif
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left: auto">
+                            <li>
+                                <a href="#" class="dropdown-item">My Dashboard</a>
+                            </li>
+                            @if (Auth::user()->is_admin)
+                                <li>
+                                    <a href="#" class="dropdown-item">Discount</a>
+                                </li>
+                            @endif
+                            <li>
+                                <a href="#"
+                                    class="dropdown-item"
+                                    onclick="event.preventDefault(); document.getElementById('logout-form').submit()">
+                                    Sign Out
+                                </a>
+                                <form action="{{ route('logout') }}" method="post" id="logout-form" class="d-none">
+                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                </form>
+                            </li>
+                        </ul>
                     </a>
                 </div>
             @else
@@ -47,7 +72,7 @@
                         Sign Up
                     </a>
                 </div>
-            @endif
+            @endauth
         </div>
     </div>
 </nav>
