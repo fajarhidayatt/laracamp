@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light py-3">
     <div class="container">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img src="{{ asset('images/logo.png') }}" alt="laracamp logo">
@@ -15,39 +15,48 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Program</a>
+                {{-- <li class="nav-item">
+                    <a class="nav-link ps-0 active" aria-current="page" href="#">Program</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Mentor</a>
+                    <a class="nav-link ps-0" href="#">Mentor</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-link ps-0" href="#">Pricing</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Business</a>
-                </li>
+                    <a class="nav-link ps-0" href="#">Business</a>
+                </li> --}}
             </ul>
             @auth
-                <div class="d-flex user-logged nav-item dropdown no-arrow">
+                <div class="d-flex user-logged nav-item dropdown">
                     <a href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        Halo, {{ explode(' ', Auth::user()->name)[0] }}!
-                        @if (Auth::user()->avatar)
+                        <span>
+                            Halo, {{ explode(' ', Auth::user()->name)[0] }}!
+                        </span>
+
+                        {{-- avatar --}}
+                        @if (!Auth::user()->is_admin)
                             <img src="{{ Auth::user()->avatar }}"
-                                class="user-photo rounded-circle"
+                                class="user-photo rounded-circle d-none d-lg-inline"
                                 alt="avatar">
                         @else
                             <img src="https://ui-avatars.com/api/?name=Admin"
-                                class="user-photo rounded-circle"
+                                class="user-photo rounded-circle d-none d-lg-inline"
                                 alt="avatar">
                         @endif
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style="right: 0; left: auto">
+
+                        {{-- dropdown --}}
+                        <ul class="dropdown-menu mt-3" aria-labelledby="dropdownMenuLink">
                             <li>
-                                <a href="#" class="dropdown-item">My Dashboard</a>
+                                <a href="{{ route(Auth::user()->is_admin ? 'admin.dashboard' : 'user.dashboard') }}"
+                                    class="dropdown-item">
+                                    My Dashboard
+                                </a>
                             </li>
                             @if (Auth::user()->is_admin)
                                 <li>
-                                    <a href="#" class="dropdown-item">Discount</a>
+                                    <a href="{{ route('admin.discount.index') }}" class="dropdown-item">Discount</a>
                                 </li>
                             @endif
                             <li>
@@ -65,11 +74,8 @@
                 </div>
             @else
                 <div class="d-flex">
-                    <a href="{{ route('login') }}" class="btn btn-master btn-secondary me-3">
+                    <a href="{{ route('login') }}" class="btn btn-master btn-primary">
                         Sign In
-                    </a>
-                    <a href="#" class="btn btn-master btn-primary">
-                        Sign Up
                     </a>
                 </div>
             @endauth

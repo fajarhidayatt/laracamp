@@ -17,7 +17,7 @@
                                     programming.
                                 </p>
                                 <p class="cta">
-                                    <a href="{{ route('login') }}" class="btn btn-master btn-primary">
+                                    <a href="#pricing" class="btn btn-master btn-primary">
                                         Get Started
                                     </a>
                                 </p>
@@ -92,7 +92,7 @@
                         <p class="support">
                             Learn from anyone around the world and get a new skills
                         </p>
-                        <a href="#" class="btn btn-master btn-secondary me-3">
+                        <a href="#" class="btn btn-master btn-secondary me-3" style="pointer-events: none">
                             Learn More
                         </a>
                     </div>
@@ -109,7 +109,7 @@
                             Each of you will be joining the private group and also working together with team memberson
                             project
                         </p>
-                        <a href="#" class="btn btn-master btn-secondary me-3">
+                        <a href="#" class="btn btn-master btn-secondary me-3" style="pointer-events: none">
                             View Demo
                         </a>
                     </div>
@@ -125,7 +125,7 @@
                             Learn how to speaking in public to demonstrate your final project and receive the
                             importantfeedbacks
                         </p>
-                        <a href="#" class="btn btn-master btn-secondary me-3">
+                        <a href="#" class="btn btn-master btn-secondary me-3" style="pointer-events: none">
                             Showcase
                         </a>
                     </div>
@@ -133,7 +133,7 @@
             </div>
         </section>
 
-        <section class="pricing">
+        <section class="pricing" id="pricing">
             <div class="container">
                 <div class="row pb-70">
                     <div class="col-12 col-lg-8 col-xl-5 mx-auto mx-xl-0 text-center text-xl-start header-wrap copywriting">
@@ -144,7 +144,7 @@
                             importantfeedbacks
                         </p>
                         <p class="mt-5">
-                            <a href="#" class="btn btn-master btn-thirdty me-3">
+                            <a href="#" class="btn btn-master btn-thirdty me-3" style="pointer-events: none">
                                 View Syllabus
                             </a>
                         </p>
