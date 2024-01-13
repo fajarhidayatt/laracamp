@@ -17,10 +17,13 @@ Route::middleware('guest')->group(function () {
         ->name('register');
     Route::post('register', [RegisteredUserController::class, 'store']);
 
-    /// login
+    /// login for admin
+    Route::get('admin/login', [AuthenticatedSessionController::class, 'loginAdmin']);
+    Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+    /// login for user
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
-    Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     /// login with google
     Route::get('auth/google', [AuthenticatedSessionController::class, 'google'])
