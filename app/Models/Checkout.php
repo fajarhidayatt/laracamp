@@ -20,4 +20,19 @@ class Checkout extends Model
         'midtrans_url',
         'midtrans_booking_code',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function camp()
+    {
+        return $this->belongsTo(Camp::class);
+    }
+
+    public function discount()
+    {
+        return $this->belongsTo(Discount::class);
+    }
 }

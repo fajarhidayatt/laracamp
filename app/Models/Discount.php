@@ -16,4 +16,9 @@ class Discount extends Model
         'description',
         'percentage',
     ];
+
+    public function checkouts()
+    {
+        return $this->hasMany(Checkout::class);
+    }
 }
