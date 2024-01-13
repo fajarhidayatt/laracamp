@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Add Discount') }}
@@ -12,28 +12,50 @@
                     <form action="{{ route('admin.discount.store') }}" method="post">
                         @csrf
                         <div class="mb-5">
-                            <label for="name">Name</label>
-                            <div class="mt-2">
-                                <x-text-input name="name" id="name"></x-text-input>
-                            </div>
+                            <x-input-label for="name" value="Name" />
+                            <x-text-input
+                                name="name"
+                                id="name"
+                                class="mt-2 w-full"
+                                value="{{ old('name') }}" />
+                            @error('name')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="code">Code</label>
-                            <div class="mt-2">
-                                <x-text-input name="code" id="code"></x-text-input>
-                            </div>
+                            <x-input-label for="code" value="code" />
+                            <x-text-input
+                                name="code"
+                                id="code"
+                                class="mt-2 w-full"
+                                value="{{ old('code') }}"
+                                maxlength="5" />
+                            @error('code')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="description">Description</label>
-                            <div class="mt-2">
-                                <x-text-input name="description" id="description"></x-text-input>
-                            </div>
+                            <x-input-label for="description" value="description" />
+                            <x-text-input
+                                name="description"
+                                id="description"
+                                class="mt-2 w-full"
+                                value="{{ old('description') }}" />
+                            @error('description')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="percentage">Percentage</label>
-                            <div class="mt-2">
-                                <x-text-input type="number" name="percentage" id="percentage"></x-text-input>
-                            </div>
+                            <x-input-label for="percentage" value="percentage" />
+                            <x-text-input
+                                type="number"
+                                name="percentage"
+                                id="percentage"
+                                class="mt-2 w-full"
+                                value="{{ old('percentage') }}" />
+                            @error('percentage')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="flex justify-end">
                             <x-primary-button>Submit</x-primary-button>
@@ -43,4 +65,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>

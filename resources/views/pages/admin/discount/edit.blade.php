@@ -1,7 +1,7 @@
-<x-app-layout>
+<x-admin-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Add Discount') }}
+            {{ __('Edit Discount') }}
         </h2>
     </x-slot>
 
@@ -13,32 +13,50 @@
                         @csrf
                         @method('PUT')
                         <div class="mb-5">
-                            <label for="name">Name</label>
-                            <div class="mt-2">
-                                <x-text-input name="name" id="name"
-                                    value="{{ $discount->name }}"></x-text-input>
-                            </div>
+                            <x-input-label for="name" value="Name" />
+                            <x-text-input
+                                name="name"
+                                id="name"
+                                class="mt-2 w-full"
+                                value="{{ old('name') ?? $discount->name }}" />
+                            @error('name')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="code">Code</label>
-                            <div class="mt-2">
-                                <x-text-input name="code" id="code"
-                                    value="{{ $discount->code }}"></x-text-input>
-                            </div>
+                            <x-input-label for="code" value="code" />
+                            <x-text-input
+                                name="code"
+                                id="code"
+                                class="mt-2 w-full"
+                                value="{{ old('code') ?? $discount->code }}"
+                                maxlength="5" />
+                            @error('code')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="description">Description</label>
-                            <div class="mt-2">
-                                <x-text-input name="description" id="description"
-                                    value="{{ $discount->description }}"></x-text-input>
-                            </div>
+                            <x-input-label for="description" value="description" />
+                            <x-text-input
+                                name="description"
+                                id="description"
+                                class="mt-2 w-full"
+                                value="{{ old('description') ?? $discount->description }}" />
+                            @error('description')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="mb-5">
-                            <label for="percentage">Percentage</label>
-                            <div class="mt-2">
-                                <x-text-input type="number" name="percentage" id="percentage"
-                                    value="{{ $discount->percentage }}"></x-text-input>
-                            </div>
+                            <x-input-label for="percentage" value="percentage" />
+                            <x-text-input
+                                type="number"
+                                name="percentage"
+                                id="percentage"
+                                class="mt-2 w-full"
+                                value="{{ old('percentage') ?? $discount->percentage }}" />
+                            @error('percentage')
+                                <x-input-error messages="{{ $message }}" class="mt-1" />
+                            @enderror
                         </div>
                         <div class="flex justify-end">
                             <x-primary-button>Update</x-primary-button>
@@ -48,4 +66,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-layout>
