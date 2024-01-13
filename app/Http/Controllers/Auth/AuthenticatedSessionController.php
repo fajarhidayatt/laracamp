@@ -4,26 +4,28 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Mail\RegisterSuccess;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\View\View;
 use Laravel\Socialite\Facades\Socialite;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Display the login view for admin.
      */
-    public function create(): View
+    public function loginAdmin(): View
     {
-        return view('pages.login');
+        return view('auth.login');
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Handle an incoming authentication request for admin.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
@@ -31,11 +33,19 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        return redirect()->intended('/admin');
     }
 
     /**
-     * Display google account page.
+     * Display the login view for user.
+     */
+    public function create(): View
+    {
+        return view('pages.login');
+    }
+
+    /**
+     * Display google account page for login user.
      */
     public function google()
     {
@@ -56,7 +66,15 @@ class AuthenticatedSessionController extends Controller
             'email_verified_at' => date('Y-m-d H:i:s', time()),
         ];
 
-        $user = User::firstOrCreate(['email' => $data['email']], $data);
+        /// cari user berdasarkan email, apakah sudah pernah mendaftar sebelumnya
+        $user = User::whereEmail($data['email'])->first();
+
+        /// jika belum, maka kirimkan email register success
+        if (!$user) {
+            $user = User::create($data);
+
+            Mail::to($user->email)->send(new RegisterSuccess($user));
+        }
 
         Auth::login($user, true);
 
@@ -64,7 +82,7 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Destroy an authenticated session.
+     * Destroy an authenticated session for user and admin.
      */
     public function destroy(Request $request): RedirectResponse
     {
